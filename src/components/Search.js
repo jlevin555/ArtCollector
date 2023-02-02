@@ -33,7 +33,12 @@ const Search = (props) => {
    * Make sure to console.error on caught errors from the API methods.
    */
   useEffect(() => {
-
+    Promise.all([fetchAllCenturies(), fetchAllClassifications])
+      .then(([centuries, classifications]) => {
+        setCenturyList(centuries);
+        setClassification(classifications);
+      })
+      .catch(console.error);
   }, []);
 
   /**

@@ -3,8 +3,8 @@
  * 
  * You need to replace YOUR_API_KEY in the string associated with KEY with your actual API key
  */
-export const BASE_URL = 'https://api.harvardartmuseums.org';
-export const KEY = 'apikey=YOUR_API_KEY';
+const BASE_URL = 'https://api.harvardartmuseums.org';
+const KEY = 'apikey=79bd80c9-70b1-41e5-83f4-4fde4d45feca';
 
 /**
  * This will make a call to the API for a single term and value (e.g. "person", and "unknown"), and return the result

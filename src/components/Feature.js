@@ -30,7 +30,25 @@ import { fetchQueryResultsFromTermAndValue } from '../api';
  *  - call setIsLoading, set it to false
  */
 const Searchable = (props) => {
-  
+    const { searchTerm, searchValue, setIsLoading, setSearchResults } = props;
+    
+   return ( 
+    <span className="content">
+        <a href="#" onClick={async (event) => {
+                event.preventDefault(); 
+                setIsLoading(true);
+
+                try {
+                    const result = await fetchQueryResultsFromTermAndValue(props.searchTerm, props.searchValue);
+                    setSearchResults(result);
+                } catch (err) {
+                    console.error('Error: ', err);
+                } finally {
+                    setIsLoading(false);
+                }
+            }}>SOME SEARCH TERM</a>
+    </span>
+   )
 }
 
 /**
@@ -68,7 +86,31 @@ const Searchable = (props) => {
  * This component should be exported as default.
  */
 const Feature = (props) => {
+    const { featuredResult } = props;
+    if (!featuredResult) {
+        return <main id="feature"></main>
+    }
 
+    
+    return (
+        <main id="feature">
+            <div className="object-feature">
+            <header>
+                <h3>OBJECT TITLE</h3>
+                <h4>WHEN IT IS DATED</h4>
+            </header>
+            <section className="facts">
+                <span className="title">FACT NAME</span>
+                <span className="content">FACT VALUE</span>
+                <span className="title">NEXT FACT NAME</span>
+                <span className="content">NEXT FACT VALUE</span>
+            </section>
+            <section className="photos">
+                <img src=IMAGE_URL alt=SOMETHING_WORTHWHILE />
+            </section>
+            </div>
+        </main>
+    )
 }
 
 export default Feature;

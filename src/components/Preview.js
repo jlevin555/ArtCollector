@@ -7,17 +7,22 @@ import React from 'react';
 import { fetchQueryResultsFromURL } from '../api';
 
 const Preview = (props) => {
+  const {
+    searchResults: { info, records },
+    setSearchResults,
+    setIsLoading,
+    setFeaturedResult,
+  } = props;
   /**
    * Destructure setSearchResults, setFeaturedResult, and setIsLoading from props
    * and also destructure info and records from props.searchResults
-   * 
+   *
    * You need info, records, setSearchResults, setFeaturedResult, and setIsLoading as available constants
    */
 
-
   /**
    * Don't touch this function, it's good to go.
-   * 
+   *
    * It has to be defined inside the Preview component to have access to setIsLoading, setSearchResults, etc...
    */
   async function fetchPage(pageUrl) {
@@ -33,22 +38,28 @@ const Preview = (props) => {
     }
   }
 
-  return <aside id="preview">
-    <header className="pagination">
-      {/* This button should be disabled if nothing is set in info.prev, and should call fetchPage with info.prev when clicked */}
-      <button 
-        disabled={} 
-        className="previous"
-        onClick={}>Previous</button>
-      {/* This button should be disabled if nothing is set in info.next, and should call fetchPage with info.next when clicked */}
-      <button
-        disabled={}
-        className="next"
-        onClick={}>Next</button>
-    </header>
-    <section className="results">
-      {
-        /* Here we should map over the records, and render something like this for each one:
+  return (
+    <aside id="preview">
+      <header className="pagination">
+        {/* This button should be disabled if nothing is set in info.prev, and should call fetchPage with info.prev when clicked */}
+        <button
+          disabled={!info.prev}
+          className="previous"
+          onClick={() => fetchPage(info.prev)}
+        >
+          Previous
+        </button>
+        {/* This button should be disabled if nothing is set in info.next, and should call fetchPage with info.next when clicked */}
+        <button
+          disabled={!info.next}
+          className="next"
+          onClick={() => fetchPage(info.next)}
+        >
+          Next
+        </button>
+      </header>
+      <section className="results">
+        {/* Here we should map over the records, and render something like this for each one:
           <div  
             key={ index }
             className="object-preview"
@@ -63,10 +74,10 @@ const Preview = (props) => {
               // if the record.title exists, add this: <h3>{ record.title }</h3>, otherwise show this: <h3>MISSING INFO</h3>
             }
           </div>
-        */
-      }
-    </section>
-  </aside>
-}
+        */}
+      </section>
+    </aside>
+  );
+};
 
 export default Preview;
