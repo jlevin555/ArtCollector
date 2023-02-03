@@ -90,23 +90,73 @@ const Feature = (props) => {
     if (!featuredResult) {
         return <main id="feature"></main>
     }
+    const {
+        title, 
+        dated, 
+        images, 
+        primaryimageurl, 
+        description, 
+        culture, 
+        style, 
+        technique, 
+        medium, 
+        dimensions, 
+        people, 
+        department, 
+        division, 
+        contact, 
+        creditline
+    } = featuredResult;
 
-    
     return (
         <main id="feature">
             <div className="object-feature">
             <header>
-                <h3>OBJECT TITLE</h3>
-                <h4>WHEN IT IS DATED</h4>
+                <h3>{title}</h3>
+                <h4>{dated}</h4>
             </header>
             <section className="facts">
-                <span className="title">FACT NAME</span>
-                <span className="content">FACT VALUE</span>
+                {description ? (
+                    <Fragment>
+                        <span className="title">Description</span>
+                        <span className="content">{description}</span>
+                    </Fragment>
+                ) : null} 
+                {culture ? (
+                    <Fragment>
+                        <span className="title">Culture</span>
+                        <Searchable searchTerm="culture" searchValue={culture} {...props} />
+                    </Fragment>
+                ) : null}
+                {style ? (
+                    <Fragment>
+                        <span className="title">Style</span>
+                        <span className="content">{style}</span>
+                    </Fragment>
+                ) : null}
+                {technique ? (
+                    <Fragment>
+                        <span className="title">Technique</span>
+                        <Searchable searchTerm="technique" searchValue={technique} {...props} />
+                    </Fragment>
+                ) : null}
+                {medium ? (
+                    <Fragment>
+                        <span className="title">Mdeium</span>
+                        <Searchable searchTerm="medium" searchValue={medium.toLowerCase()} {...props} />
+                    </Fragment>
+                ) : null}
+                {dimensions ? (
+                    <Fragment>
+                        <span className="title">Dimensions</span>
+                        <span className="content">{dimensions}</span>
+                    </Fragment>
+                ) : null}
                 <span className="title">NEXT FACT NAME</span>
                 <span className="content">NEXT FACT VALUE</span>
             </section>
             <section className="photos">
-                <img src=IMAGE_URL alt=SOMETHING_WORTHWHILE />
+                <img src='IMAGE_URL' alt='SOMETHING_WORTHWHILE' />
             </section>
             </div>
         </main>

@@ -10,6 +10,13 @@ import {
 } from '../api';
 
 const Search = (props) => {
+  const { setIsLoading, setSearchResults } = props;
+
+  const [centuryList, setCenturyList] = useState([]);
+  const [classificationList, setClassificationList] = useState([]);
+  const [queryString, setQueryString] = useState('');
+  const [century, setCentury] = useState('any');
+  const [classification, setClassification] = useState('any');
   // Make sure to destructure setIsLoading and setSearchResults from the props
 
 
@@ -58,6 +65,16 @@ const Search = (props) => {
    * finally: call setIsLoading, set it to false
    */
   return <form id="search" onSubmit={async (event) => {
+    event.preventDefault();
+    setIsLoading(true);
+    try {
+      const result = await fetchQueryResults({century, classification, queryString});
+      setSearchResults(result);
+    } catch (err) {
+      console.error('Error: ', err)
+    } finally {
+      setIsLoading(false);
+    }
     // write code here
   }}>
     <fieldset>
@@ -66,7 +83,7 @@ const Search = (props) => {
         id="keywords" 
         type="text" 
         placeholder="enter keywords..." 
-        value={/* this should be the query string */} 
+        value={queryString} 
         onChange={/* this should update the value of the query string */}/>
     </fieldset>
     <fieldset>
@@ -74,9 +91,10 @@ const Search = (props) => {
       <select 
         name="classification"
         id="select-classification"
-        value={/* this should be the classification */} 
-        onChange={/* this should update the value of the classification */}>
+        value={classification} 
+        onChange={handleChange}>
         <option value="any">Any</option>
+        {classificationList.map (() => ) }
         {/* map over the classificationList, return an <option /> */}
       </select>
     </fieldset>
@@ -85,7 +103,7 @@ const Search = (props) => {
       <select 
         name="century" 
         id="select-century"
-        value={/* this should be the century */} 
+        value={century} 
         onChange={/* this should update the value of the century */}>
         <option value="any">Any</option>
         {/* map over the centuryList, return an <option /> */}
