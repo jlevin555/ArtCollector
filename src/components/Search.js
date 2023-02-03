@@ -84,7 +84,7 @@ const Search = (props) => {
         type="text" 
         placeholder="enter keywords..." 
         value={queryString} 
-        onChange={/* this should update the value of the query string */}/>
+        onChange={event => setQueryString(event.target.value)}/>
     </fieldset>
     <fieldset>
       <label htmlFor="select-classification">Classification <span className="classification-count">({ classificationList.length })</span></label>
@@ -92,9 +92,9 @@ const Search = (props) => {
         name="classification"
         id="select-classification"
         value={classification} 
-        onChange={handleChange}>
+        onChange={event => setClassification(event.target.value)}>
         <option value="any">Any</option>
-        {classificationList.map (() => ) }
+        {/*classificationList.map (() => ) */}
         {/* map over the classificationList, return an <option /> */}
       </select>
     </fieldset>
@@ -104,7 +104,7 @@ const Search = (props) => {
         name="century" 
         id="select-century"
         value={century} 
-        onChange={/* this should update the value of the century */}>
+        onChange={event => setCentury(event.target.value)}>
         <option value="any">Any</option>
         {/* map over the centuryList, return an <option /> */}
       </select>
