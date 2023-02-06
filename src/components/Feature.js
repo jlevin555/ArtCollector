@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 // Don't touch this import
-import { fetchQueryResultsFromTermAndValue } from '../api';
+import { fetchQueryResults, fetchQueryResultsFromTermAndValue } from '../api';
 
 /**
  * We need a new component called Searchable which:
@@ -122,12 +122,18 @@ const Feature = (props) => {
                         <span className="content">{description}</span>
                     </Fragment>
                 ) : null} 
-                {culture ? (
+                {culture && (
                     <Fragment>
                         <span className="title">Culture</span>
-                        <Searchable searchTerm="culture" searchValue={culture} {...props} />
+                        <span className="content">
+                        <Searchable 
+                            searchTerm="culture" 
+                            searchValue={culture} 
+                            />
+                            {culture}
+                            </span> 
                     </Fragment>
-                ) : null}
+                ) }
                 {style ? (
                     <Fragment>
                         <span className="title">Style</span>
@@ -137,13 +143,25 @@ const Feature = (props) => {
                 {technique ? (
                     <Fragment>
                         <span className="title">Technique</span>
-                        <Searchable searchTerm="technique" searchValue={technique} {...props} />
+                        <span className="content">
+                        <Searchable 
+                            searchTerm="technique" 
+                            searchValue={technique} 
+                            />
+                            {technique}
+                            </span>
                     </Fragment>
                 ) : null}
                 {medium ? (
                     <Fragment>
-                        <span className="title">Mdeium</span>
-                        <Searchable searchTerm="medium" searchValue={medium.toLowerCase()} {...props} />
+                        <span className="title">Medium</span>
+                        <span className="content"><a href={medium.toLowerCase()}>
+                        <Searchable 
+                            searchTerm="medium" 
+                            searchValue={medium} 
+                            /></a>
+                            {medium.toLowerCase()}
+                            </span>
                     </Fragment>
                 ) : null}
                 {dimensions ? (
@@ -152,11 +170,45 @@ const Feature = (props) => {
                         <span className="content">{dimensions}</span>
                     </Fragment>
                 ) : null}
-                <span className="title">NEXT FACT NAME</span>
-                <span className="content">NEXT FACT VALUE</span>
+                {people ? (
+                    <Fragment>
+                        <span className="title">People</span>
+                        <span className="content">
+                        <Searchable 
+                            searchTerm="person, people" 
+                            searchValue={people.map (person => person.displayname).join('')} 
+                            >
+                        {person.displayname}
+                        </Searchable></span>
+                    </Fragment>
+                ) : null}
+                {department ? (
+                    <Fragment>
+                        <span className="title">Department</span>
+                        <span className="content">{department}</span>
+                    </Fragment>
+                ) : null}
+                {division ? (
+                    <Fragment>
+                        <span className="title">Division</span>
+                        <span className="content">{division}</span>
+                    </Fragment>
+                ) : null}
+                {contact ? (
+                    <Fragment>
+                        <span className="title">Contact</span>
+                        <span><a target="_blank" href="mailto: { contact }">{contact}</a></span>
+                    </Fragment>
+                ) :null}
+                {creditline ? (
+                    <Fragment>
+                        <span className="title">Credit Line</span>
+                        <span className="content">{creditline}</span>
+                    </Fragment>
+                ) : null}
             </section>
             <section className="photos">
-                <img src='IMAGE_URL' alt='SOMETHING_WORTHWHILE' />
+                <img src={primaryimageurl} alt={images} />
             </section>
             </div>
         </main>

@@ -11,7 +11,7 @@ import {
 } from './components';
 
 const App = () => {
-  const [ SearchResults, setSearchResults ] = useState ( {info: {}, records: []} );
+  const [ searchResults, setSearchResults ] = useState ( {info: {}, records: []} );
   const [ featuredResult, setFeaturedResult ] = useState(null);
   const [ isLoading, setIsLoading ] = useState(false);
 
@@ -37,9 +37,10 @@ const App = () => {
     setFeaturedResult = {setFeaturedResult}
      />
     {/* <Feature /> needs props for featuredResult, as well as setIsLoading and setSearchResults (clicking on searchable properties) */}
-    <Feature featuredResult = {featuredResult} setSearchResults = {setSearchResults} />
+    <Feature featuredResult = {featuredResult} setIsLoading={setIsLoading} setSearchResults = {setSearchResults} />
     {/* <Loading /> is static, but should only render when isLoading is true */}
-    <Loading /> {/* use a ternary and render null if isLoading is false */}
+    {isLoading ? <Loading /> : null}
+    {/*<Loading /> {/* use a ternary and render null if isLoading is false */}
   </div>
 }
 
