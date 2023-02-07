@@ -34,7 +34,8 @@ const Searchable = (props) => {
     
    return ( 
     <span className="content">
-        <a href='#' onClick={async (event) => {
+        <a href='#' 
+                onClick={async (event) => {
                 event.preventDefault(); 
                 setIsLoading(true);
 
@@ -127,7 +128,8 @@ const Feature = (props) => {
                         <span className="title">Culture</span>
                         <Searchable 
                             searchTerm={culture} 
-                            searchValue={culture} 
+                            searchValue={culture}
+                            {...props} 
                             />
                     </Fragment>
                 ) : null}
@@ -142,7 +144,8 @@ const Feature = (props) => {
                         <span className="title">Technique</span>
                         <Searchable 
                             searchTerm={technique} 
-                            searchValue={technique} 
+                            searchValue={technique}
+                            {...props} 
                             />
                     </Fragment>
                 ) : null}
@@ -151,7 +154,8 @@ const Feature = (props) => {
                         <span className="title">Medium</span>
                         <Searchable 
                             searchTerm={medium.toLowerCase()} 
-                            searchValue={medium.toLowerCase()} 
+                            searchValue={medium.toLowerCase()}
+                            {...props} 
                             />
                     </Fragment>
                 ) : null}
@@ -168,6 +172,7 @@ const Feature = (props) => {
                         <Searchable 
                             searchTerm={person.displayname}
                             searchValue={person.displayname}
+                            {...props}
                             />
                     </Fragment>
                     ))
