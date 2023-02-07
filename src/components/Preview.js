@@ -58,8 +58,10 @@ const Preview = (props) => {
             setFeaturedResult(record);
           }}
           >
+            <a href='#'>
             {record.primaryimageurl ? <img src={record.primaryimageurl} alt={record.description} /> : null}
             {record.title ? <h3>{record.title}</h3> : <h3>MISSING INFO</h3>}
+            </a>
           </div>
         ))
         }

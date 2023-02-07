@@ -34,19 +34,19 @@ const Searchable = (props) => {
     
    return ( 
     <span className="content">
-        <a href="#" onClick={async (event) => {
+        <a href='#' onClick={async (event) => {
                 event.preventDefault(); 
                 setIsLoading(true);
 
                 try {
-                    const result = await fetchQueryResultsFromTermAndValue(props.searchTerm, props.searchValue);
+                    const result = await fetchQueryResultsFromTermAndValue(searchTerm, searchValue);
                     setSearchResults(result);
                 } catch (err) {
                     console.error('Error: ', err);
                 } finally {
                     setIsLoading(false);
                 }
-            }}>SOME SEARCH TERM</a>
+            }}>{searchTerm}</a>
     </span>
    )
 }
@@ -122,18 +122,15 @@ const Feature = (props) => {
                         <span className="content">{description}</span>
                     </Fragment>
                 ) : null} 
-                {culture && (
+                {culture ? (
                     <Fragment>
                         <span className="title">Culture</span>
-                        <span className="content">
                         <Searchable 
-                            searchTerm="culture" 
+                            searchTerm={culture} 
                             searchValue={culture} 
                             />
-                            {culture}
-                            </span> 
                     </Fragment>
-                ) }
+                ) : null}
                 {style ? (
                     <Fragment>
                         <span className="title">Style</span>
@@ -143,25 +140,19 @@ const Feature = (props) => {
                 {technique ? (
                     <Fragment>
                         <span className="title">Technique</span>
-                        <span className="content">
                         <Searchable 
-                            searchTerm="technique" 
+                            searchTerm={technique} 
                             searchValue={technique} 
                             />
-                            {technique}
-                            </span>
                     </Fragment>
                 ) : null}
                 {medium ? (
                     <Fragment>
                         <span className="title">Medium</span>
-                        <span className="content"><a href={medium.toLowerCase()}>
                         <Searchable 
-                            searchTerm="medium" 
-                            searchValue={medium} 
-                            /></a>
-                            {medium.toLowerCase()}
-                            </span>
+                            searchTerm={medium.toLowerCase()} 
+                            searchValue={medium.toLowerCase()} 
+                            />
                     </Fragment>
                 ) : null}
                 {dimensions ? (
@@ -170,18 +161,17 @@ const Feature = (props) => {
                         <span className="content">{dimensions}</span>
                     </Fragment>
                 ) : null}
-                {people ? (
-                    <Fragment>
+                {people ? 
+                    people.map ((person) => (
+                    <Fragment key={person.personid}>
                         <span className="title">People</span>
-                        <span className="content">
                         <Searchable 
-                            searchTerm="person, people" 
-                            searchValue={people.map (person => person.displayname).join('')} 
-                            >
-                        {person.displayname}
-                        </Searchable></span>
+                            searchTerm={person.displayname}
+                            searchValue={person.displayname}
+                            />
                     </Fragment>
-                ) : null}
+                    ))
+                 : null}
                 {department ? (
                     <Fragment>
                         <span className="title">Department</span>
@@ -208,7 +198,13 @@ const Feature = (props) => {
                 ) : null}
             </section>
             <section className="photos">
-                <img src={primaryimageurl} alt={images} />
+                {images ? images.map ((image) => (
+                    <img 
+                    key={image.imageid}
+                    src={image.baseimageurl} 
+                    alt={image.description}
+                    />
+                ) ) : <img src={primaryimageurl} alt={primaryimageurl} />} 
             </section>
             </div>
         </main>
